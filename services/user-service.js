@@ -12,7 +12,7 @@ module.exports = (app) => {
     const newUser = new User({email, username});
     User.register(newUser, password)
     .then(status => {console.log("status", status); res.send(status)})
-        .catch(e=>{console.log("error", e); res.sendStatus(500)})
+        .catch(e=>{console.log("error", e); res.sendStatus(403)})
   }
 
   app.get('/register', findUser)
