@@ -44,11 +44,13 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get('/fakeuser', (req, res) => {
-  const user = new User({email: 'fakeUser@gmail.com', username: 'fakeUser'});
-  const newUser = User.register(user, 'ffaakkee');
-  res.send(newUser)
-})
+// app.get('/fakeuser', (req, res) => {
+//   const user = new User({email: 'fakeUser@gmail.com', username: 'fakeUser'});
+//   const newUser = User.register(user, 'ffaakkee');
+//   res.send(newUser)
+// })
+
+require('./services/user-service')(app);
 
 // services
 require('./services/review-service')(app);
