@@ -7,7 +7,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./db/user/user-model');
 
-mongoose.connect('mongodb://localhost:27017/restaurant-finder');
+const MONGODB_URI = 'mongodb+srv://rf-admin:cs5610@restaurant-finder.ivbrl.mongodb.net/restaurant-finder?retryWrites=true&w=majority';
+
+mongoose.connect(MONGODB_URI || 'mongodb://localhost:27017/restaurant-finder');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -47,5 +49,9 @@ app.get('/fakeuser', (req, res) => {
   const newUser = User.register(user, 'ffaakkee');
   res.send(newUser)
 })
+
+// services
+require('./services/review-service')(app);
+require('./services/restaurant-service')(app);
 
 app.listen(process.env.PORT || 4000);
