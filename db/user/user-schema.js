@@ -7,6 +7,7 @@ const schema = mongoose.Schema({
     required: true,
     unique: true
   }
+
 }, {collections: "users"});
 schema.plugin(passportLocalMongoose);
 module.exports = schema;

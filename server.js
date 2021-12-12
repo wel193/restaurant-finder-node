@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./db/user/user-model');
+const cookieParser = require("cookie-parser")
+const bcrypt = require("bcryptjs");
 
 const MONGODB_URI = 'mongodb+srv://rf-admin:cs5610@restaurant-finder.ivbrl.mongodb.net/restaurant-finder?retryWrites=true&w=majority';
 
@@ -17,15 +19,11 @@ app.use(bodyParser.json());
 const sessionConfig = {
   secret: "secretcode",
   resave: true,
-  saveUninitialized: true,
-  cookie: {
-    httpOnly: true,
-    //secure: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //a week from now in millisecond
-    maxAge: 1000 * 60 * 60 * 24 * 7
-  }
+  saveUninitialized: true
 }
+
 app.use(session(sessionConfig));
+app.use(cookieParser("sercetcode"))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -39,16 +37,32 @@ app.use(function(req, res, next) {
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
 
+// const authenticateFunction =
+//   new LocalStrategy((username, password, done) => {
+//     User.findOne({ username: username }, (err, user) => {
+//       if (err) throw err;
+//       if (!user) return done(null, false);
+//       bcrypt.compare(password, user.password, (err, result) => {
+//         if (result === true) {
+//           return done(null, user);
+//         } else {
+//           return done(null, false);
+//         }
+//       });
+//     });
+// })
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
 
 // app.get('/fakeuser', (req, res) => {
 //   const user = new User({email: 'fakeUser@gmail.com', username: 'fakeUser'});
 //   const newUser = User.register(user, 'ffaakkee');
 //   res.send(newUser)
 // })
+
 
 require('./services/user-service')(app);
 
