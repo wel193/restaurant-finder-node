@@ -1,5 +1,6 @@
 const dao = require('../db/user/user-dao')
 const User = require('../db/user/user-model')
+const passport = require('passport');
 
 module.exports = (app) => {
   const findUser = (req, res) => {
@@ -15,6 +16,13 @@ module.exports = (app) => {
         .catch(e=>{console.log("error", e); res.sendStatus(403)})
   }
 
-  app.get('/register', findUser)
+  const userLogin = (req, res) => {
+    res.sendStatus(200);
+  }
+
+  app.get('/users', findUser)
+  app.get('/register', (req,res) => res.render('users/register'))
+  app.get('/login', (req, res)=>res.render('users/login'))
   app.post('/register', userRegister)
+  app.post('/login', passport.authenticate('local'), userLogin)
 }
