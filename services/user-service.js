@@ -23,14 +23,7 @@ module.exports = (app) => {
   }
 
 
-  const doSomething = (req, res) =>{
-    console.log("in doSomething", req.user);
-    res.send(res.status)
-  }
-
   app.post('/login',  passport.authenticate("local"), userLogin)
-  // app.post('/login', userLogin2)
-  app.get('/user', doSomething)
   app.get('/users', findUser)
   app.get('/register', (req,res) => res.render('users/register'))
   app.get('/login', (req, res)=>res.render('users/login'))
