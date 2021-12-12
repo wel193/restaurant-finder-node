@@ -1,7 +1,6 @@
 const dao = require('../db/user/user-dao')
 const User = require('../db/user/user-model')
 const passport = require('passport');
-const {isLoggedIn} = require('../middleware');
 
 module.exports = (app) => {
   const findUser = (req, res) => {
