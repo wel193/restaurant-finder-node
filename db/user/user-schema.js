@@ -7,7 +7,12 @@ const schema = mongoose.Schema({
     required: true,
     unique: true
   },
-  avatarIcon: String
+  avatarIcon: String,
+  role:{
+    type:String,
+    default: "USER",
+    enum: ["USER", "HOST", "ADMIN"]
+  }
 }, {collections: "users"});
 schema.plugin(passportLocalMongoose);
 module.exports = schema;
