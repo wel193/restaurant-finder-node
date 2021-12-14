@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    restaurantName: String,
+    location_id: String,
+    name: String,
     description: String,
-    hours: String,
-    address: String,
-    city: String,
-    phone: String,
-    website: String,
+    location_string: String,
     images: []
 }, {collection: 'restaurants'});
 

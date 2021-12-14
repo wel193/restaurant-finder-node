@@ -13,10 +13,14 @@ module.exports = (app) => {
         dao.createReview(req.body)
             .then(insertedReview => res.json(insertedReview));
 
+    const deleteReview = (req, res) =>
+        dao.deleteReview(req.params.id)
+            .then(status => res.send(status));
+
     app.get('/api/reviews', findAllReviews);
     app.get('/api/reviews/:id', findReviewsByRestaurantId);
     app.post('/api/reviews', createReview);
-    // app.delete('/api/reviews/:id', deleteReview);
+    app.delete('/api/reviews/:id', deleteReview);
     // app.put('/api/reviews/:id', updateReview);
 
 }

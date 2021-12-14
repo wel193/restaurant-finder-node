@@ -2,7 +2,7 @@ const model = require('./review-model');
 
 const findAllReviews = () => model.find();
 
-const findReviewsByRestaurantId = (id) => model.find({'restaurant._id': id});
+const findReviewsByRestaurantId = (id) => model.find({'restaurant.location_id': id});
 
 const createReview = (review) => model.create(review);
 

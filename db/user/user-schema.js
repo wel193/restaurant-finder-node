@@ -6,8 +6,8 @@ const schema = mongoose.Schema({
     type:String,
     required: true,
     unique: true
-  }
-
+  },
+  avatarIcon: String
 }, {collections: "users"});
 schema.plugin(passportLocalMongoose);
 module.exports = schema;
