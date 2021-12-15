@@ -39,6 +39,13 @@ module.exports = (app) => {
     res.send("logged out on server side")
   }
 
+  const updateUserProfile = (req, res) => {
+    console.log("update profile in server", req.body)
+    dao.updateUserProfile(loggedInUserId, req.body)
+        .then(status => {console.log("after update user", status); res.json(status)})
+        .catch(e=>{console.log(e)})
+  }
+
   app.post('/login',  passport.authenticate("local"), userLogin)
   // app.post("/login", (req, res, next) => {
   //   passport.authenticate("local", (err, user, info) => {
@@ -60,4 +67,7 @@ module.exports = (app) => {
   app.get('/login', (req, res)=>res.render('users/login'))
   app.post('/register', userRegister)
   app.get('/logout', userLogout)
+  app.put('/user', updateUserProfile)
 }
+
+//dummy avatar icon: https://images.megapixl.com/4684/46846368.jpg
