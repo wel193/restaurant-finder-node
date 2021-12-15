@@ -22,9 +22,6 @@ const sessionConfig = {
   saveUninitialized: true
 }
 
-app.use(session(sessionConfig));
-app.use(cookieParser("sercetcode"))
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers",
@@ -35,24 +32,27 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(session(sessionConfig));
+app.use(cookieParser("sercetcode"))
 app.use(passport.initialize());
 app.use(passport.session());
 
-// const authenticateFunction =
-//   new LocalStrategy((username, password, done) => {
-//     User.findOne({ username: username }, (err, user) => {
-//       if (err) throw err;
-//       if (!user) return done(null, false);
-//       bcrypt.compare(password, user.password, (err, result) => {
-//         if (result === true) {
-//           return done(null, user);
-//         } else {
-//           return done(null, false);
-//         }
-//       });
-//     });
-// })
+const authenticateFunction =
+  new LocalStrategy((username, password, done) => {
+    User.findOne({ username: username }, (err, user) => {
+      if (err) throw err;
+      if (!user) return done(null, false);
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result === true) {
+          return done(null, user);
+        } else {
+          return done(null, false);
+        }
+      });
+    });
+})
 passport.use(new LocalStrategy(User.authenticate()));
+// passport.use(authenticateFunction)
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

@@ -1,9 +1,9 @@
 const model = require('./user-model');
 const userRegister = (info) => model.create(info);
-const findUser = () => model.find();
+const findUsers = () => model.find();
 const updateRole = (username, role) => model.findOneAndUpdate({username: username}, {role: role});
-
+const findUserById = (id) => model.findById(id)
 
 module.exports = {
-  userRegister, findUser, updateRole
+  userRegister, findUsers, updateRole, findUserById
 };
