@@ -1,19 +1,26 @@
 const dao = require('../db/restaurant/restaurant-dao');
 
 module.exports = (app) => {
-    // const findRestaurantsByName = (req, res) =>
-    //     dao.findRestaurantsByName(req.params.name)
-    //         .then(restaurants => res.json(restaurants));
-    //
-    // const findRestaurantsByCity = (req, res) =>
-    //     dao.findRestaurantsByCity(req.params.city)
-    //         .then(restaurants => res.json(restaurants));
+    const findRestaurantsByName = (req, res) =>{
+      console.log("find restaurant in server", req.params)
+        dao.findRestaurantsByName(req.params.name)
+            .then(restaurants => res.json(restaurants))};
+
+    const findRestaurantsByCity = (req, res) =>
+        dao.findRestaurantsByCity(req.params.city)
+            .then(restaurants => res.json(restaurants));
 
     const findRestaurantById = (req, res) =>
         dao.findRestaurantById(req.params.id)
             .then(restaurants => res.json(restaurants));
 
-    // app.get('/api/restaurants/:name', findRestaurantsByName);
-    // app.get('/api/restaurants/:city', findRestaurantsByCity);
+  const postRestaurant = (req, res) =>{
+      console.log("post restaurant server", req.body)
+      dao.postRestaurant(req.body)
+      .then(restaurants => res.json(restaurants));}
+
+    app.get('/api/restaurants/:name', findRestaurantsByName);
+    app.get('/api/restaurants/:city', findRestaurantsByCity);
     app.get('/api/restaurants/:id', findRestaurantById);
+    app.post('/api/restaurants', postRestaurant)
 }

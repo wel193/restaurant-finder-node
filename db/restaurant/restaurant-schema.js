@@ -4,8 +4,11 @@ const schema = mongoose.Schema({
     location_id: String,
     name: String,
     description: String,
-    location_string: String,
-    images: []
+    address: String,
+    phone: String,
+    website: String,
+    photo:{images:{large:{url: String}}}
+
 }, {collection: 'restaurants'});
 
 module.exports = schema;
