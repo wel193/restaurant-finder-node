@@ -7,8 +7,8 @@ const schema = mongoose.Schema({
     address: String,
     phone: String,
     website: String,
-    photo:{images:{large:{url: String}}}
-
+    photo:{images:{large:{url: String}}},
+    author: String,
 }, {collection: 'restaurants'});
 
 module.exports = schema;
