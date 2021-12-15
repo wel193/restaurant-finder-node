@@ -10,9 +10,10 @@ module.exports = (app) => {
         dao.findRestaurantsByCity(req.params.city)
             .then(restaurants => res.json(restaurants));
 
-    const findRestaurantById = (req, res) =>
+    const findRestaurantById = (req, res) =>{
+        console.log("find restaurant by id in server", req.params)
         dao.findRestaurantById(req.params.id)
-            .then(restaurants => res.json(restaurants));
+            .then(restaurants => res.json(restaurants));}
 
   const postRestaurant = (req, res) =>{
       console.log("post restaurant server", req.body)
@@ -27,7 +28,7 @@ module.exports = (app) => {
 
     app.get('/api/restaurants/:name', findRestaurantsByName);
     app.get('/api/restaurants/:city', findRestaurantsByCity);
-    app.get('/api/restaurants/:id', findRestaurantById);
+    app.get('/api/restaurants/id/:id', findRestaurantById);
     app.get('/api/restaurants/author/:author', findRestaurantByAuthor);
     app.post('/api/restaurants', postRestaurant)
 }
